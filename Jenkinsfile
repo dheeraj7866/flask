@@ -1,6 +1,8 @@
 pipeline {
     environment {
-        AWS_ACCOUNT_ID = credentials('aws-account-id')
+        // AWS_ACCOUNT_ID = credentials('aws-account-id')
+        AWS_ACCOUNT_ID = '211125629788'
+
         AWS_REGION = 'us-east-1' // Adjust to your AWS region
         ECR_REPO_NAME = 'flask'
         IMAGE_TAG = "${env.BUILD_ID}"
