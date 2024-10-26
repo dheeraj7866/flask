@@ -17,42 +17,14 @@ pipeline {
     agent any
     
     stages {
-        // stage('Checkout Code') {
-        //     steps {
-        //         // Pull the code from your repository
-        //         git 'https://github.com/your-repo/flask-app.git'
-        //     }
-        // }
-
-        // stage('Build Docker Image') {
-        //     steps {
-        //         script {
-        //             docker.build("${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}")
-        //         }
-        //     }
-        // }
-
-        // stage('Login to ECR') {
-        //     steps {
-        //         script {
-        //             sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-        //         }
-        //     }
-        // }
-
-        // stage('Login to ECR') {
-        //     steps {
-        //         withEnv(["AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}", "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"]) {
-        //             script {
-        //                 def loginCommand = sh(
-        //                     script: "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com",
-        //                     returnStdout: true
-        //                 )
-        //                 echo "ECR Login successful"
-        //             }
-        //         }
-        //     }
-        // }
+       
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}")
+                }
+            }
+        }
 
         stage('Login to ECR') {
             
