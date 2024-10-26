@@ -9,6 +9,7 @@
       {
         "name": "flask-container",
         "image": "211125629788.dkr.ecr.us-east-1.amazonaws.com/flask:21",
+        "memory": 512,
         "portMappings": [
           {
             "containerPort": 5000,
