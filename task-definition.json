@@ -5,6 +5,7 @@
             "name": "flask-container",
             "image": "211125629788.dkr.ecr.us-east-1.amazonaws.com/flask:latest",
             "cpu": 0,
+            "memory": 512,
             "portMappings": [
                 {
                     "containerPort": 5000,
