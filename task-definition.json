@@ -1,33 +1,30 @@
 {
-    "family": "flask-family",
-    "containerDefinitions": [
-        {
-            "name": "flask-container",
-            "image": "211125629788.dkr.ecr.us-east-1.amazonaws.com/flask:latest",
-            "cpu": 0,
-            "memory": 512,
-            "portMappings": [
-                {
-                    "containerPort": 5000,
-                    "hostPort": 5000,
-                    "protocol": "tcp"
-                }
-            ],
-            "essential": true,
-            "environment": [],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "systemControls": []
-        }
-    ],
-    "executionRoleArn": "arn:aws:iam::211125629788:role/ecsTaskExecutionRole",
+    "family": "fargate-task",
     "networkMode": "awsvpc",
-    "volumes": [],
-    "placementConstraints": [],
-    "requiresCompatibilities": [
-        "FARGATE"
-    ],
-    "cpu": "512",
-    "memory": "1024",
-    "enableFaultInjection": false
-}
+    "cpu": "256",
+    "memory": "512",
+    "requiresCompatibilities": ["FARGATE"],
+    "executionRoleArn": "arn:aws:iam::211125629788:role/ecsTaskExecutionRole",
+    "containerDefinitions": [
+      {
+        "name": "flask-container",
+        "image": "211125629788.dkr.ecr.us-east-1.amazonaws.com/flask:21",
+        "portMappings": [
+          {
+            "containerPort": 5000,
+            "hostPort": 5000,
+            "protocol": "tcp"
+          }
+        ],
+        "essential": true,
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/fargate-task",
+            "awslogs-region": "YOUR_AWS_REGION",
+            "awslogs-stream-prefix": "ecs"
+          }
+        }
+      }
+    ]
+  }

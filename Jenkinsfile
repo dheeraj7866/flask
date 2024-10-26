@@ -13,7 +13,7 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')     // Jenkins credential ID for access key
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY') // Jenkins credential ID for secret key
         AWS_ACCOUNT_ID = credentials('aws-account-id') 
-        TASK_DEFINITION = 'falsk-family'
+        TASK_DEFINITION = 'fargate-task'
         CLUSTER_NAME='flask-cluster'
         SERVICE_NAME='flask-first-service'
 
