@@ -60,7 +60,7 @@ pipeline {
                     aws ecs register-task-definition \
                     --family ${TASK_DEFINITION} \
                     --container-definitions "$(jq --arg IMAGE_URI "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}" \
-                    '.[] | .image = $IMAGE_URI' task-definition.json)" \
+                    '.[] | image = $IMAGE_URI' task-definition.json)" \
                     --region ${AWS_REGION}
                     '''
                 }
