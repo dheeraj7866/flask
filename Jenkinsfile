@@ -55,10 +55,9 @@ pipeline {
         // }
 
         stage('Login to ECR') {
+            
             steps {
                 echo "AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}"
-            }
-            steps {
                 script {
                     // Login to ECR with AWS CLI
                     sh '''
