@@ -1,15 +1,16 @@
 {
     "family": "fargate-task",
     "networkMode": "awsvpc",
-    "cpu": "256",
-    "memory": "512",
+    "memory": "1 GB",
+    "cpu": "1 vCPU",
     "requiresCompatibilities": ["FARGATE"],
     "executionRoleArn": "arn:aws:iam::211125629788:role/ecsTaskExecutionRole",
     "containerDefinitions": [
       {
         "name": "flask-container",
         "image": "211125629788.dkr.ecr.us-east-1.amazonaws.com/flask:21",
-        "memory": 512,
+        "memory": "1 GB",
+        "cpu": "1 vCPU",
         "portMappings": [
           {
             "containerPort": 5000,
