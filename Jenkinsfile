@@ -52,20 +52,39 @@ pipeline {
             }
         }
 
-        stage('Update ECS Task Definition') {
+        // stage('Update ECS Task Definition') {
+        //     steps {
+        //         script {
+        //             // Register a new ECS task definition with the updated image
+        //             sh '''
+        //             aws ecs register-task-definition \
+        //             --family ${TASK_DEFINITION} \
+        //             --container-definitions "$(jq --arg IMAGE_URI "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}" \
+        //             '.containerDefinitions[] | select(.name == "flask-container") | .image = $IMAGE_URI' task-definition.json)" \
+        //             --region us-east-1
+        //             '''
+        //         }
+        //     }
+        // }
+
+        stage('Update Task Definition') {
             steps {
                 script {
-                    // Register a new ECS task definition with the updated image
-                    sh '''
-                    aws ecs register-task-definition \
-                    --family ${TASK_DEFINITION} \
-                    --container-definitions "$(jq --arg IMAGE_URI "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}" \
-                    '.containerDefinitions[] | select(.name == "flask-container") | .image = $IMAGE_URI' task-definition.json)" \
-                    --region us-east-1
-                    '''
+                    def imageUri = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}"
+                    sh """
+                        jq '.containerDefinitions[0].image = "${imageUri}"' task-definition.json > updated-task-definition.json
+                    """
                 }
             }
         }
+        stage('Register Task Definition') {
+            steps {
+                sh """
+                    aws ecs register-task-definition --cli-input-json file://updated-task-definition.json --region ${AWS_REGION}
+                """
+            }
+        }
+    
         stage('Update ECS Service') {
             steps {
                 script {
