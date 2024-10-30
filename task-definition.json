@@ -21,7 +21,7 @@
           "logDriver": "awslogs",
           "options": {
             "awslogs-group": "/ecs/fargate-task",
-            "awslogs-region": "YOUR_REGION",
+            "awslogs-region": "us-east-1",
             "awslogs-stream-prefix": "ecs"
           }
         }
