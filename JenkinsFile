@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building ${env.BRANCH_NAME}"
+                // sh 'make build'
+            }
+        }
+        stage('Docker images') {
+            steps {
+                sh 'docker build -t test-feature/jenkins .'
+            }
+        }
+    }
+}
